@@ -13,8 +13,6 @@ services:
     environment:
       DB_NAME: wordpress
       DB_PASS: root
-      DEV_THEME_USERNAME: holger1411
-      DEV_THEME_REPONAME: understrap
       # PLUGINS: >-
   db:
     image: mariadb:10 # or mysql:5.7
@@ -36,6 +34,10 @@ services:
     volumes:
       - ./wordpress:/wordpress
       - ./local-scripts:/local-scripts
-
+    environment:
+      DEV_THEME_USERNAME: titaniumbones
+      DEV_THEME_REPONAME: understrap
+      DEV_THEME_BRANCH: dockerize
+      
 volumes:
   data:
