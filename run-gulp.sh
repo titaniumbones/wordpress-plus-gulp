@@ -72,9 +72,7 @@ get_dev_theme() {
     echo "No Dev Theme URL provided"
   fi
   chmod -R a+rw /wordpress/wp-content/themes/$DEV_THEME_REPONAME
-  _wp theme activate $DEV_THEME_REPONAME || _log_last_exit_colorize \
-                                              "Success: activated $DEV_THEME_URL theme." \
-                                              "Error: unable to activate $DEV_THEME_URL"
+
 }
 
 # mkdir -p /wordpress/wp-content/themes/understrap
