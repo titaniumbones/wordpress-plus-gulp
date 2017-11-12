@@ -7,9 +7,7 @@ services:
       - 443:443
     volumes:
       - ./data:/data
-      - ./plugins:/app/wp-content/plugins
-      - ./themes:/app/wp-content/themes
-      - ./uploads:/app/wp-content/uploads
+      - ./wordpress:/app/
       # - ./dev-theme:/app/wp-content/themes/dev-theme
       # - ./dev-plugin:/app/wp-content/plugins/dev-plugin
     environment:
@@ -36,7 +34,7 @@ services:
       - 3000:3000
       - 3001:3001
     volumes:
-      - ./themes:/themes
+      - ./wordpress:/wordpress
       - ./local-scripts:/local-scripts
 
 volumes:
