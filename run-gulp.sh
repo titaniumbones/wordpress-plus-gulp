@@ -2,6 +2,46 @@
 # need to update to use dev names
 DEV_THEME_BRANCH=${DEV_THEME_BRANCH:-master}
 
+
+# Helpers
+# ---------------------
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+PURPLE='\033[0;34m'
+CYAN='\033[0;36m'
+BOLD='\E[1m'
+NC='\033[0m'
+
+h1() {
+  local len=$(($(tput cols)-1))
+  local input=$*
+  local size=$(((len - ${#input})/2))
+
+  for ((i = 0; i < len; i++)); do echo -ne "${PURPLE}${BOLD}="; done; echo ""
+  for ((i = 0; i < size; i++)); do echo -n " "; done; echo -e "${NC}${BOLD}$input"
+  for ((i = 0; i < len; i++)); do echo -ne "${PURPLE}${BOLD}="; done; echo -e "${NC}"
+}
+
+h2() {
+  echo -e "${ORANGE}${BOLD}==>${NC}${BOLD} $*${NC}"
+}
+
+
+_colorize() {
+  local IN
+  local success="${GREEN}${BOLD}Success:${NC}"
+  local failed="${RED}${BOLD}Error:${NC}"
+  local warning="${CYAN}${BOLD}Warning:${NC}"
+  while read -r IN; do
+   IN="${IN/Success\:/$success}"
+   IN="${IN/Error\:/$failed}"
+   IN="${IN/Warning\:/$warning}"
+   echo -e "$IN"
+  done
+}
+
 _log_last_exit_colorize() {
   if [ $? -eq 0 ]; then
     echo "$1" |& _colorize
