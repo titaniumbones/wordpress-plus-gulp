@@ -1,18 +1,20 @@
 version: '3'
 services:
   wordpress:
-    image: visiblevc/wordpress:latest
+    build: ./DK-wp
     ports:
       - 8080:80
       - 443:443
     volumes:
       - ./data:/data
-      - ./wordpress:/app/
-      # - ./dev-theme:/app/wp-content/themes/dev-theme
-      # - ./dev-plugin:/app/wp-content/plugins/dev-plugin
+      - ./wordpress:/wordpress
+      - ./local-scripts:/localscripts
     environment:
       DB_NAME: wordpress
       DB_PASS: root
+      DEV_THEME_USERNAME: titaniumbones
+      DEV_THEME_REPONAME: understrap
+      DEV_THEME_BRANCH: dockerize
       # PLUGINS: >-
   db:
     image: mariadb:10 # or mysql:5.7
@@ -27,7 +29,7 @@ services:
     ports:
       - 22222:80
   gulp:
-    build: ./
+    build: ./DK-gulp
     ports:
       - 3000:3000
       - 3001:3001
@@ -35,9 +37,10 @@ services:
       - ./wordpress:/wordpress
       - ./local-scripts:/local-scripts
     environment:
+      DB_NAME: wordpress
+      DB_PASS: root
       DEV_THEME_USERNAME: titaniumbones
       DEV_THEME_REPONAME: understrap
       DEV_THEME_BRANCH: dockerize
-      
 volumes:
   data:
